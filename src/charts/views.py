@@ -34,11 +34,17 @@ class ChartData(APIView):
         # qs_count = User.objects.all().count()
         status = request.query_params.get("status")
         countries = request.query_params.get("countries")
+        date = request.query_params.get("date")
 
+        date = date.split("-")
+        new_date = "{1}-{0}-{2}".format(date[2],date[1],date[0])
 
-        print(status, "--------")
-
-        path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/12-25-2020.csv'
+        print(new_date, "-----new_date---")
+        print(date, "-----date---")
+        if date ==None:
+            path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/12-25-2020.csv'
+        else:
+            path = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/{}.csv'.format(new_date)
         df = pd.read_csv(path)
 
         df.drop(['FIPS', 'Admin2','Last_Update','Province_State', 'Combined_Key'], axis=1, inplace=True)

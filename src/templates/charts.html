@@ -33,6 +33,7 @@ var status = "Confirmed";
 var countries = "10";
 var backend_countries = [];
 var country = "Pakistan";
+var graph_date = "2021-11-08";
 // $.ajax({
 //     method: "GET",
 //     url: endpoint,
@@ -112,7 +113,8 @@ axios.get(endpoint,{
     params: {
         
         status: status,
-        countries: countries
+        countries: countries,
+        date: graph_date
     }
   })
   .then(function (response) {
@@ -142,7 +144,8 @@ $("#countries").change((e)=>{
     params: {
         
         status: status,
-        countries: countries
+        countries: countries,
+        date: graph_date
     }
   })
   .then(function (response) {
@@ -202,7 +205,39 @@ timeSeriesGraph();
     // always executed
   });
 })
-  
+
+$("#Date").change((e)=>{
+   
+    graph_date = e.target.value
+    console.log(graph_date)
+    axios.get(endpoint,{
+    params: {
+        
+        status: status,
+        countries: countries,
+        date: graph_date
+    }
+  })
+  .then(function (response) {
+    // handle success
+    // console.log(response);
+        labels = response.data.labels
+        defaultData = response.data.default
+        status = response.data.status
+        setChart()
+
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .then(function () {
+    // always executed
+  });
+
+    
+});
+
 
 function setChart(){
     var ctx = document.getElementById("myChart");
@@ -482,6 +517,8 @@ timeSeriesGraph();
                 <option value="20">20</option>
                 <option value="25">25</option>
             </select>
+
+            <input type="date" id="Date" name="Date"> 
 
             <script>
                 function myFunction() {
