@@ -33,7 +33,7 @@ var status = "Confirmed";
 var countries = "10";
 var backend_countries = [];
 var country = "Pakistan";
-var graph_date = "2021-11-08";
+var graph_date = "2020-11-08";
 // $.ajax({
 //     method: "GET",
 //     url: endpoint,
@@ -57,7 +57,8 @@ var graph_date = "2021-11-08";
 axios.get(endpoint,{
     params: {
         status: status,
-        countries: countries
+        countries: countries,
+        date: graph_date
     }
   })
   .then(function (response) {
