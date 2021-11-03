@@ -34,19 +34,6 @@ var countries = "10";
 var backend_countries = [];
 var country = "Pakistan";
 var graph_date = "2020-11-08";
-// $.ajax({
-//     method: "GET",
-//     url: endpoint,
-//     success: function(data){
-//         labels = data.labels
-//         defaultData = data.default
-//         setChart()
-//     },
-//     error: function(error_data){
-//         console.log("error")
-//         console.log(error_data)
-//     }
-// })
 
 // Confirmed
 // Deaths
@@ -62,8 +49,7 @@ axios.get(endpoint,{
     }
   })
   .then(function (response) {
-    // handle success
-    // console.log(response);
+    
         labels = response.data.labels
         defaultData = response.data.default
         status = response.data.status
@@ -105,8 +91,6 @@ axios.get(endpoint,{
 
   }
 
-
-
   $("#status").change((e)=>{
     console.log("value : ",e.target.value);
     status = e.target.value
@@ -119,8 +103,7 @@ axios.get(endpoint,{
     }
   })
   .then(function (response) {
-    // handle success
-    // console.log(response);
+    
         labels = response.data.labels
         defaultData = response.data.default
         status = response.data.status
@@ -150,8 +133,6 @@ $("#countries").change((e)=>{
     }
   })
   .then(function (response) {
-    // handle success
-    // console.log(response);
         labels = response.data.labels
         defaultData = response.data.default
         status = response.data.status
@@ -176,27 +157,10 @@ $("#country_drop").change((e)=>{
         country: country,
     }
   })
-  .then(function (response) {
-    // handle success
-//     console.log("response.data.clean_data");
-//     console.log(response.data);
-//     backend_countries = response.data.country;
-//     var countries_option = "";
-//     backend_countries.forEach(element=>{
-//             countries_option += "<option value='"+element+"' selected>"+element+"</option>"
-//     })
-// $('#country').html(countries_option);
+.then(function (response) {
 
+    timeSeriesGraph();
 
-// var newData = [];
-// response.data.clean_data.forEach((item,index)=>{
-//     newData.push({value:item.value, date: new Date(item.data)})
-// })
-// console.log("new data : ", newData);
-//     clean_data = newData;
-timeSeriesGraph();
-
-    
   })
   .catch(function (error) {
     // handle error
@@ -213,15 +177,14 @@ $("#Date").change((e)=>{
     console.log(graph_date)
     axios.get(endpoint,{
     params: {
-        
+       
         status: status,
         countries: countries,
         date: graph_date
     }
   })
   .then(function (response) {
-    // handle success
-    // console.log(response);
+
         labels = response.data.labels
         defaultData = response.data.default
         status = response.data.status
@@ -397,7 +360,6 @@ var myChart4 = new Chart(ctx4, {
     }
 });
 }
-// var ctx = document.getElementById("myChart");
 
 function timeSeriesGraph(){
 
